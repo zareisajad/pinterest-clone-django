@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>Home</h3>
+
+<div id="masonry">
+    {% for pin in pins %}
+        <img class="m-2 rounded" src="{{ pin.image.url }}" alt="">
+    {% endfor %}
+</div>
 {% endblock %}
