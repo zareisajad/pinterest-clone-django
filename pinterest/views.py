@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from multiprocessing import context
+from django.shortcuts import render, redirect
 
-# Create your views here.
+
+def home(request):
+    context = {}
+    return render(request, 'home.html', context)

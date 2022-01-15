@@ -31,7 +31,7 @@ def user_login(request):
             )
             if user is not None:
                 login(request, user)
-                return redirect('shop:home_page')
+                return redirect('pinterest:home')
             else:
                 messages.error(
                     request, 'username or password is wrong', 'danger'
