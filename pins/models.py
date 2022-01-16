@@ -1,3 +1,5 @@
+import re
+from unittest import removeResult
 from django.db import models
 
 from accounts.models import User
@@ -9,6 +11,9 @@ class Pin(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='boards')
     image = models.ImageField(upload_to='pins')
     title = models.CharField(max_length=250)
+    link = models.CharField(max_length=250)
     description = models.TextField()
-    link = models.TextField()
-    date_created = models.DateTimeField(auto_now_add=True)    
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

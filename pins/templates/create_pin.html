@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="bg-light row ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 mt-5 mb-5 bg-white">
+        <form method="post" class="p-5" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}

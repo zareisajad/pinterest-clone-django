@@ -25,12 +25,19 @@
                 <input  class="btn btn-primary" id="room-name-submit" type="submit" value="create">
             </form>
         </div>
-        <div id="masonry">
+        <div class="row">
             {% for board in boards %}
-            <div class="bg-light rounded">
-                {{ board.title }}
-                {{ board.pins.all }}
-                <img src="{{ board.pins.all|slice:':-1' }}" alt="">
+            <div class="col-md-2 ms-5 me-4 p-3">
+              {% with cover=board.pins.all|slice:"-1" %}
+                {% if not cover %}
+                    <img class="rounded" style="object-fit: cover;" height="200" width="200" src="../../media/pins/default.png" alt="">
+                {% else %}
+                {% for pin in cover %}
+                    <img class="rounded" style="object-fit: cover;" height="200" width="200" src="{{ pin.image.url }}" alt="">
+                {% endfor %}
+                {% endif %}
+              {% endwith %}
+                <h4 class="mt-2" style="float: left;"><b>{{ board.title }}</b></h4>
             </div>
             {% endfor %}
         </div>
