@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
@@ -6,15 +7,15 @@ from .managers import UserManager
 
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=100, unique=True)
-    full_name = models.CharField(max_length=100)    
+    username = models.CharField(max_length=150, unique=True)    
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
 
     def __str__(self):
@@ -29,3 +30,16 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    photo = models.ImageField(default='profiles/default.png', upload_to='profiles')
+    about = models.CharField(max_length=300)
+    fname = models.CharField(max_length=300)
+    lname = models.CharField(max_length=300)
+    pronouns = models.CharField(max_length=100)
+    website = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'

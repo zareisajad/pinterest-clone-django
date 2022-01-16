@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div>
-    <img class="rounded" src="{{ pin.image.url }}" alt="">
+<div class="col-md-2"></div>
+<div class="col-md-8 row">
+    <div class="col-md-6">
+        <img src="{{ pin.image.url }}" alt="">
+    </div>
+    <div class="col-md-6">
+        <h2>{{pin.title}}</h2>
+        <p>{{pin.description}}</p>
+        <p>{{pin.date_created}}</p>
+        <p>{{pin.board.title}}</p>
+    </div>
 </div>
+<div class="col-md-2"></div>
 {% endblock %}

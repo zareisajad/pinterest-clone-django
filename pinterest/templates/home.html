@@ -3,7 +3,7 @@
 
 <div id="masonry">
     {% for pin in pins %}
-    <a class="m-2" href="{% url 'pinterest:pin_detail' id=pin.id %}">
+    <a class="m-2" href="{% url 'pinterest:pin_detail' pin.id %}">
         <img class=" rounded" src="{{ pin.image.url }}" alt="">
     </a>
     {% endfor %}

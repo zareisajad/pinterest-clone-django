@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-2"></div>
+<div class="col-md-8 text-center">
+    <img width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
+    <h1 class="text-black"><b>{% if user.profile.fname %}{{ user.profile.fname }} {{ user.profile.lname }}{% else %}{{ user.username }}{% endif %}</b></h1>
+    <p class="text-muted">@{{ user.username }} . {{ user.profile.pronouns }}</p>
+    <p><b><a class="text-black text-decoration-none" href="{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
+    <div class="">
+        <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
+        <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
+    </div>
+    <div class="mt-5 mb-5">
+        <a href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Created</b></a>
+        <a  href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b style="border-bottom: 2px black solid;">Saved</b></a>
+    </div>
+    <div class="">
+        <a style="float: right;" href="">
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="gUZ pBj U9O kVc" height="20" width="20" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M22 10h-8V2a2 2 0 0 0-4 0v8H2a2 2 0 0 0 0 4h8v8a2 2 0 0 0 4 0v-8h8a2 2 0 0 0 0-4" fill="#111111" stroke-width="0px"></path></svg>
+        </a>
+        <!-- create board -->
+        <div class="">
+            <form id="form" action="">
+                <input class="form-control" id="room-name-input" type="text" size="100"><br>
+                <input  class="btn btn-primary" id="room-name-submit" type="submit" value="create">
+            </form>
+        </div>
+        <div id="masonry">
+            {% for board in boards %}
+            <div class="bg-light rounded">
+                {{ board.title }}
+                {{ board.pins.all }}
+                <img src="{{ board.pins.all|slice:':-1' }}" alt="">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+<div class="col-md-2"></div>
+<script>
+        document.querySelector('#form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            var boardName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/boards/' + boardName + '/';
+        })
+</script>
+{% endblock %}

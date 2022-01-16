@@ -4,9 +4,9 @@ from .models import User
 
 
 class UserLoginForm(forms.Form):
-    email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={'class': 'form-control', 'placeholder': 'email'}
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'username'}
         )
     )
     password = forms.CharField(
@@ -22,9 +22,9 @@ class UserRegistrationForm(forms.Form):
             attrs={'class': 'form-control', 'placeholder': 'email'}
         )
     )
-    full_name = forms.CharField(
+    username = forms.CharField(
         widget=forms.TextInput(
-            attrs={'class': 'form-control', 'placeholder': 'full name'}
+            attrs={'class': 'form-control', 'placeholder': 'username'}
         )
     )
     password = forms.CharField(

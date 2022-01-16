@@ -12,7 +12,7 @@ def user_register(request):
         if form.is_valid():
             data = form.cleaned_data
             user = User.objects.create_user(
-                data['email'], data['full_name'], data['password']
+                data['email'], data['username'], data['password']
             )
             return redirect('accounts:user_login')
     else:
@@ -27,7 +27,7 @@ def user_login(request):
         if form.is_valid():
             data = form.cleaned_data
             user = authenticate(
-                request, email=data['email'], password=data['password']
+                request, username=data['username'], password=data['password']
             )
             if user is not None:
                 login(request, user)

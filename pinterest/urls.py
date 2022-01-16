@@ -7,5 +7,6 @@ app_name = 'pinterest'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('pin/<int:id>', views.pin_detail, name='pin_detail')
+    path('pin/<int:id>/', views.pin_detail, name='pin_detail'),
+    path('<str:username>/_saved/', views.profile, name='profile'),
 ]
