@@ -6,5 +6,6 @@ from . import views
 app_name = 'pinterest'
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
+    path('pin/<int:id>', views.pin_detail, name='pin_detail')
 ]

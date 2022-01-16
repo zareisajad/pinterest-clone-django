@@ -5,8 +5,10 @@ div#masonry {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	height: 100vw;
+	height: 200vw;
+	width: 290px;
+	margin: 0;
 }
 div#masonry img { 
-	width: 32%;
+	width: 100%;
 }
