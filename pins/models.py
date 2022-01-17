@@ -1,5 +1,6 @@
 import re
 from unittest import removeResult
+from urllib import request
 from django.db import models
 
 from accounts.models import User
