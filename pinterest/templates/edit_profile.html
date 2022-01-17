@@ -2,12 +2,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 pt-4 me-5 pb-5">
+            <p class="text-black"><b>Public profile</b></p>
+            <p class="text-black"><b>Account settings</b></p>
         </div>
         <div class="col-md-8 ps-5 pe-5 pt-3 pb-5">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <h2><b>Profile</b></h2>
+                <h2 class="text-black"><b>Public Profile</b></h2>
                 <p class="mb-4" >People visiting your profile will see the following info</p>
                 <div class="row mt-1">
                     <div class="col-md-1 me-4">

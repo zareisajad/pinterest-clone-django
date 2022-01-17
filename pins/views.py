@@ -7,7 +7,7 @@ from .forms import CreatePinForm
 
 def create_pin(request):
     if request.method == 'POST':
-        form = CreatePinForm(request.POST, request.FILES, user=request.user)
+        form = CreatePinForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
@@ -16,6 +16,6 @@ def create_pin(request):
             board.pins.add(instance)
             return redirect('pinterest:profile', request.user.username)
     else:
-        form = CreatePinForm(user=request.user)
+        form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form}
     return render(request, 'create_pin.html', context)

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="col-md-1"></div>
-
 <div class="col-md-10 text-center">
     <!-- plus icon | create board and pin dropdown menu -->
     <div class="dropdown">
@@ -16,7 +15,7 @@
     <img style="object-fit: cover;" width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
     <h1 class="text-black"><b>{% if user.profile.fname %}{{ user.profile.fname }} {{ user.profile.lname }}{% else %}{{ user.username }}{% endif %}</b></h1>
     <p class="text-muted">@{{ user.username }} . {{ user.profile.pronouns }}</p>
-    <p><b><a class="text-black text-decoration-none" href="{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
+    <p><b><a class="text-black text-decoration-none" href="http://{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
     <div class="">
         <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
         <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'pinterest:edit_profile' %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
@@ -48,7 +47,7 @@
         <div class="row">
             {% for board in boards %}
             <div class="col-md-2 ms-2 me-4 mb-2">
-              {% with cover=board.pins.all|slice:"-1" %}
+              {% with cover=board.pins.all|slice:"0:1" %}
                 {% if not cover %}
                     <img class="rounded" style="object-fit: cover;" height="200" width="200" src="../../media/pins/default.png" alt="">
                 {% else %}
