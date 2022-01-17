@@ -1,3 +1,10 @@
+.edit-profile-input{
+	border: 2px #dddddd solid;
+}
+.about-input {
+	border-radius: 20px;
+}
+
 div#masonry {
 	display: -ms-flexbox;
 	-ms-flex-direction: column;

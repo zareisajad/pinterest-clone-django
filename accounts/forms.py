@@ -1,4 +1,3 @@
-from dataclasses import fields
 from django import forms
 from django.forms import ModelForm
 
@@ -38,6 +37,8 @@ class UserRegistrationForm(forms.Form):
 
 
 class EditProfileForm(ModelForm):
+    photo = forms.ImageField(required=False, widget=forms.FileInput)
+    
     class Meta:
         model = Profile
         fields = ['photo', 'about', 'fname', 'lname', 'pronouns', 'website']
@@ -45,4 +46,8 @@ class EditProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+            if visible.name == 'about':
+                visible.field.widget.attrs['class'] = 'edit-profile-input form-control about-input'
+            else:
+                visible.field.widget.attrs['class'] = 'edit-profile-input form-control rounded-pill'
+        
