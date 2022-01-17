@@ -1,4 +1,3 @@
-from urllib import request
 from django.forms import ModelForm
 
 from .models import Pin

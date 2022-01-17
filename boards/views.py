@@ -1,4 +1,3 @@
-from contextlib import redirect_stderr
 from django.shortcuts import render, redirect
 
 from .models import Board

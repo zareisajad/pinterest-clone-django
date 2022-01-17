@@ -13,13 +13,13 @@
             <li><a class="dropdown-item" href="{% url 'pins:create_pin' %}">Create Pin</a></li>
         </ul>
     </div>
-    <img width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
+    <img style="object-fit: cover;" width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
     <h1 class="text-black"><b>{% if user.profile.fname %}{{ user.profile.fname }} {{ user.profile.lname }}{% else %}{{ user.username }}{% endif %}</b></h1>
     <p class="text-muted">@{{ user.username }} . {{ user.profile.pronouns }}</p>
     <p><b><a class="text-black text-decoration-none" href="{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
     <div class="">
         <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
-        <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
+        <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'pinterest:edit_profile' %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
     </div>
     <div class="mt-5 mb-5">
         <a href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Created</b></a>
