@@ -1,4 +1,4 @@
-// create board Modal
+// show/close board Modal
 const createBoardBtn = document.querySelector("#createBoardBtn");
 const modal = document.querySelector("#simpleModal");
 
@@ -15,7 +15,7 @@ function clickOutside(e) {
   }
 }
 
-// create board
+// send board name to /boards/<board_name>
 document.querySelector('#form').addEventListener('submit', (e) => {
   e.preventDefault();
   var boardName = document.querySelector('#board-name-input').value;
