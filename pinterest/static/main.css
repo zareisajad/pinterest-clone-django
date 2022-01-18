@@ -66,7 +66,7 @@ div#masonry img {
 	cursor: pointer;
 	border-radius: 90%;
 	text-align: center;
-  }
+}
 
 .edit-btn{
 	display: none;
@@ -76,4 +76,16 @@ div#masonry img {
 
 .img-container img:hover + .edit-btn {
 	display: inline-block;
+}
+
+.description-input {
+	border-radius: 30px;
+}
+.board-input {
+	border-radius: 30px 0px 0px 30px;
+}
+
+.drag-form {
+	margin-top: 60px;
+	height: 300px;
 }

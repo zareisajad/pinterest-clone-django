@@ -12,59 +12,63 @@
             <li><a class="dropdown-item" href="{% url 'pins:create_pin' %}">Create Pin</a></li>
         </ul>
     </div>
+    <!-- user public information -->
     <img style="object-fit: cover;" width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
     <h1 class="text-black"><b>{% if user.profile.fname %}{{ user.profile.fname }} {{ user.profile.lname }}{% else %}{{ user.username }}{% endif %}</b></h1>
     <p class="text-muted">@{{ user.username }} . {{ user.profile.pronouns }}</p>
     <p><b><a class="text-black text-decoration-none" href="http://{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
+    <p>0 following</p>
+    <!-- edit profile and share btn -->
     <div class="">
         <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
         <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'pinterest:edit_profile' %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
     </div>
+    <!-- saved and created tabs -->
     <div class="mt-5 mb-5">
         <a href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Created</b></a>
         <a  href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b style="border-bottom: 2px black solid;">Saved</b></a>
     </div>
-        <!-- create board modal -->
-        <div id="simpleModal" class="modal">
-            <div class="modal-content ps-5 pb-5 pe-5">
-                <h3 class="mt-4 mb-3"><b>Create Board</b></h3>
-                <div class="row">
-                    <form id="form">
-                        <label style="float: left;" for="">Name</label>
-                        <input class="form-control border rounded-pill p-2 mt-1" id="board-name-input" type="text" size="100" placeholder=' Like "Places to Go" or "Recipes to Make"'>
-                        <div class="col-md-1 mt-4">                            
-                            <input style="float: left;" type="checkbox" class="form-check-input mt-1">
-                        </div>
-                        <div style="text-align:left" class="col-md-11">
-                            <b class="ms-1">Keep this board secret</b>
-                            <p class="text-muted ms-4">So only you and collaborators can see it. Learm more</p>
-                        </div>
-                        <input style="background-color: #e60023; border-radius: 50px;float: right;font-weight: bold;" class="btn text-white mt-3" id="room-name-submit" type="submit" value="create">
-                    </form>
-                </div>
+    <!-- create board modal -->
+    <div id="simpleModal" class="modal">
+        <div class="modal-content ps-5 pb-5 pe-5">
+            <h3 class="mt-4 mb-3"><b>Create Board</b></h3>
+            <div class="row">
+                <form id="form">
+                    <label style="float: left;" for="">Name</label>
+                    <input class="form-control border rounded-pill p-2 mt-1" id="board-name-input" type="text" size="100" placeholder=' Like "Places to Go" or "Recipes to Make"'>
+                    <div class="col-md-1 mt-4">                            
+                        <input style="float: left;" type="checkbox" class="form-check-input mt-1">
+                    </div>
+                    <div style="text-align:left" class="col-md-11">
+                        <b class="ms-1">Keep this board secret</b>
+                        <p class="text-muted ms-4">So only you and collaborators can see it. Learm more</p>
+                    </div>
+                    <input style="background-color: #e60023; border-radius: 50px;float: right;font-weight: bold;" class="btn text-white mt-3" id="room-name-submit" type="submit" value="create">
+                </form>
             </div>
-            </div>
-        <div class="row">
-            {% for board in boards %}
-            <div class="img-container col-md-2 ms-2 me-4 mb-2">
-                <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
-              {% with cover=board.pins.all|slice:"0:1" %}
-                {% if not cover %}
-                    <img class="rounded" style="object-fit: cover;" height="200" width="200" src="../../media/pins/default.png" alt="">
-                    <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
-                {% else %}
-                {% for pin in cover %}
-                    <img class="rounded" style="object-fit: cover;" height="200" width="200" src="{{ pin.image.url }}" alt="">
-                    <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
-                {% endfor %}
-                {% endif %}
-              {% endwith %}
-                <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
-              </a>
-            </div>
-            {% endfor %}
         </div>
-        
+    </div>
+    <!-- user boards -->
+    <div class="row">
+        {% for board in boards %}
+        <div class="img-container col-md-2 ms-2 me-4 mb-2">
+            <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
+            {% with cover=board.pins.all|slice:"0:1" %}
+            {% if not cover %}
+                <img class="rounded" style="object-fit: cover;" height="200" width="200" src="../../media/pins/default.png" alt="">
+                <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
+            {% else %}
+            {% for pin in cover %}
+                <img class="rounded" style="object-fit: cover;" height="200" width="200" src="{{ pin.image.url }}" alt="">
+                <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 <div class="col-md-1"></div>
 
