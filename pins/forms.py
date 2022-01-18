@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from .models import Pin
 from boards.models import Board
 
+
 class CreatePinForm(ModelForm):
     class Meta:
         model = Pin

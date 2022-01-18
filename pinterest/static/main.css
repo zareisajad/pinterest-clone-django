@@ -4,7 +4,6 @@
 .about-input {
 	border-radius: 20px;
 }
-
 div#masonry {
 	display: -ms-flexbox;
 	-ms-flex-direction: column;
@@ -50,4 +49,31 @@ div#masonry img {
 	  opacity: 1;
 	}
   }
+
+.img-container {
+	position: relative;
+}
   
+.img-container .edit-btn {
+	position: absolute;
+	top: 72%;
+	left: 98%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	font-size: 18px;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+	border-radius: 90%;
+	text-align: center;
+  }
+
+.edit-btn{
+	display: none;
+	background-color: white;
+	border-radius: 90%;
+}
+
+.img-container img:hover + .edit-btn {
+	display: inline-block;
+}

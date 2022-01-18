@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 
 from boards.models import Board
-
 from .forms import CreatePinForm
 
 
