@@ -4,7 +4,8 @@
     <div style="background-color: #efefef;height: auto;" class="row">
     <div class="col-md-3"></div>
     <div style="border-radius: 15px;" class="col-md-6 mt-5 mb-5 bg-white">
-      <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
     <div class="col-md-12 p-5">
         <div class="row">
           <div class="col-md-5"></div>

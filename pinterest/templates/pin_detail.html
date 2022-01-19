@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="col-md-2"></div>
-<div class="col-md-8 row">
+<div class="col-md-1"></div>
+<div class="col-md-10 row">
     <div class="col-md-6">
-        <img src="{{ pin.image.url }}" alt="">
+        <img style="height: fit-content;width: 500px;"  src="{{ pin.image.url }}" alt="">
     </div>
     <div class="col-md-6">
         <h2>{{pin.title}}</h2>
@@ -11,8 +11,7 @@
         <p>{{pin.date_created}}</p>
         <p>{{pin.board.title}}</p>
         <p>{{pin.user.username}}</p>
-
     </div>
 </div>
-<div class="col-md-2"></div>
+<div class="col-md-1"></div>
 {% endblock %}

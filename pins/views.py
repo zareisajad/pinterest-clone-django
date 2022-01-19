@@ -13,6 +13,7 @@ def create_pin(request):
             board = Board.objects.filter(id=instance.board.id).first()
             instance.save()
             board.pins.add(instance)
+            return redirect('pinterest:pin_detail', instance.id)
     form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
     return render(request, 'create_pin.html', context) 
