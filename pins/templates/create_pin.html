@@ -4,29 +4,21 @@
     <div style="background-color: #efefef;height: auto;" class="row">
     <div class="col-md-3"></div>
     <div style="border-radius: 15px;" class="col-md-6 mt-5 mb-5 bg-white">
-      <div class="row">
-        <div class="col-md-5 p-5">
-          <form action="{% url 'pins:save_pin' %}" method="post" enctype="multipart/form-data" class="dropzone drag-form bg-light border rounded">
-            {% csrf_token %}
-            <div class="fallback">
-                {{form.image}}
-            </div>
-        </div>
-    <div class="col-md-7 mt-5">
-        <div class="row pe-5">
-          <div class="col-md-4"></div>
-            <div class="col-md-6"> 
-                {{form.board}}
-            </div>
-            <div class="col-md-2">
+      <form method="POST" enctype="multipart/form-data">
+    <div class="col-md-12 p-5">
+        <div class="row">
+          <div class="col-md-5"></div>
+            <div class="col-md-6"> {{form.board}}</div>
+            <div class="col-md-1">
                 <button type="submit" class="text-white" style="background-color: #e60023; border-radius: 0 30px 30px 0;border: 0;padding-top: 7px;padding-bottom: 7px;padding-left: 7px;padding-right: 10px;margin-left: -25px;"><b>Save</b></button>
             </div>
             <div class="col-md-12 mt-3">{{form.title}}</div>
             <div class="col-md-12 mt-3">{{form.description}}</div>
-            <div class="col-md-12 mt-3 mb-5">{{form.link}}</div>
+            <div class="col-md-12 mt-3">{{form.link}}</div>
+            <div class="col-md-12 mt-3 mb-2">{{form.image}}</div>
         </div>
+    </form>
     </div>
-        </form>
     </div>
     </div>
     <div class="col-md-3"></div>
