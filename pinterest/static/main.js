@@ -21,3 +21,5 @@ document.querySelector('#form').addEventListener('submit', (e) => {
   var boardName = document.querySelector('#board-name-input').value;
   window.location.pathname = '/boards/' + boardName + '/';
 })
+
+

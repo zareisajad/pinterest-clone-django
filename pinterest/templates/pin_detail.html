@@ -5,34 +5,77 @@
     <div class="col-md-6">
         <img style="height: fit-content;width: 400px;border-radius: 20px;"  src="{{ pin.image.url }}" alt="">
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 mt-4">
+        <form class="mb-3" method="post">
         <div class="row">
-            <form action="" method="post">
                 {% csrf_token %}
-                <div class="col-md-6">{{form.board}}</div>
+                <div class="dropdown col-md-6 mt-2">
+                    <a href="#" class="d-block link-dark text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="gUZ pBj" height="20" width="20" viewBox="0 0 24 24" aria-label="More options" role="img"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3M3 9c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm18 0c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" fill="#111111" stroke-width="0px"></path></svg>
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                          <li><a class="dropdown-item" href="#">Download image</a></li>
+                          <li><a class="dropdown-item" href="#">Edit pin</a></li>
+                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                </div>
+                <div class="col-md-4">{{form.board}}</div>
                 <div class="col-md-1">
                     <button type="submit" class="text-white" style="background-color: #e60023; border-radius: 0 30px 30px 0;border: 0;padding-top: 7px;padding-bottom: 7px;padding-left: 7px;padding-right: 10px;margin-left: -25px;"><b>Save</b></button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
         <p><a class="text-black" href="http://{{pin.link}}">{{ pin.link }}</a></p>
         <h1><b>{{pin.title}}</b></h1>
         <div class="row">
             <div class="col-md-1">
                 <img src="{{ pin.user.profile.photo.url }}" class="rounded-circle" width="50" height="50" alt="">
             </div>
-            <div class="col-md-7 ms-4">
-                <b>{{pin.user.username}}</b>
-                <p style="font-size: 13px;">0 followers</p>
+            <div class="col-md-7 ms-2">
+                <b class="ms-3">{{pin.user.username}}</b>
+                <p class="ms-3" style="font-size: 13px;">0 followers</p>
             </div>
             <div class="col-md-1 mt-1 ms-3">
                 <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn text-black"><b>Follow</b></a>
             </div>
         </div>
         <div class="mt-1">{{ pin.description }}</div>
-        <h5 class="mt-3"><b>Comments</b></h5>
+        <h5 class="mt-3">
+            <b>Comments</b>
+            <a href="#" id="openComments">
+                <svg class="mb-1 ms-2 Hn_ gUZ pBj U9O kVc" height="18" width="18" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M6.72 24c.57 0 1.14-.22 1.57-.66L19.5 12 8.29.66c-.86-.88-2.27-.88-3.14 0-.87.88-.87 2.3 0 3.18L13.21 12l-8.06 8.16c-.87.88-.87 2.3 0 3.18.43.44 1 .66 1.57.66" fill="#111111" stroke-width="0px"></path></svg>
+            </a>
+        </h5>
+        <form id="commentsForm" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <p style="font-size: 12px;" >Share feedback, ask a question or give a high five</p>
+                <div class="col-md-1 me-4">
+                    <img src="{{ pin.user.profile.photo.url }}" class="rounded-circle" width="50" height="50" alt="">
+                </div>
+                <div class="col-md-10 mt-1">
+                    <input class="form-control rounded-pill border" type="text" name="" id="" placeholder="Add comment">
+                </div>
+            </div>
+        </form>
         <div class="mt-5"><b>{{pin.user.username}}</b> saved to <b>{{pin.board.title}}</b></div>
     </div>
 </div>
 <div class="col-md-2"></div>
+<script>
+// comments open and close form in pin detail
+const openComments = document.querySelector('#openComments')
+const commentsForm = document.querySelector('#commentsForm')
+
+openComments.addEventListener('click', () => {
+    if(commentsForm.style.display === 'none'){
+        commentsForm.style.display = 'block';
+        openComments.innerHTML = '<svg class="mb-1 ms-2 gUZ pBj U9O kVc" height="18" width="18" viewBox="0 0 24 24" aria-label="Select a board you want to save to" role="img"><path d="M12 19.5.66 8.29c-.88-.86-.88-2.27 0-3.14.88-.87 2.3-.87 3.18 0L12 13.21l8.16-8.06c.88-.87 2.3-.87 3.18 0 .88.87.88 2.28 0 3.14L12 19.5z" fill="#111111" stroke-width="0px"></path></svg>'
+
+    } else{
+        commentsForm.style.display = 'none';
+        openComments.innerHTML = '<svg class="mb-1 ms-2 Hn_ gUZ pBj U9O kVc" height="18" width="18" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M6.72 24c.57 0 1.14-.22 1.57-.66L19.5 12 8.29.66c-.86-.88-2.27-.88-3.14 0-.87.88-.87 2.3 0 3.18L13.21 12l-8.06 8.16c-.87.88-.87 2.3 0 3.18.43.44 1 .66 1.57.66" fill="#111111" stroke-width="0px"></path></svg>'
+    }
+})
+</script>
 {% endblock %}
