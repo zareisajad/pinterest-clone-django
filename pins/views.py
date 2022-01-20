@@ -16,4 +16,4 @@ def create_pin(request):
             return redirect('pinterest:pin_detail', instance.id)
     form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
-    return render(request, 'create_pin.html', context) 
+    return render(request, 'create_pin.html', context)

@@ -22,3 +22,16 @@ class CreatePinForm(ModelForm):
                 visible.field.widget.attrs['class'] = 'board-input border form-control'
             else:
                 visible.field.widget.attrs['class'] = 'form-control border rounded-pill'
+
+
+class SaveToBoard(ModelForm):
+    class Meta:
+        model = Pin
+        fields = ['board']
+
+    def __init__(self, user, *args, **kwargs):
+        super(SaveToBoard, self).__init__(*args, **kwargs)
+        self.fields['board'].queryset = Board.objects.filter(user=user)
+        for visible in self.visible_fields():
+            if visible.name == 'board':
+                visible.field.widget.attrs['class'] = 'board-input border form-control'
