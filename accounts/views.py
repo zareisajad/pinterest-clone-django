@@ -2,9 +2,10 @@ from multiprocessing import context
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.http import Http404
 
 from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
-from .models import User
+from .models import User, Follow
 
 
 def user_register(request):
@@ -47,3 +48,20 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('accounts:user_login')
+
+
+def follow(request, username):
+    user = get_object_or_404(User, username=username)
+    check_user = Follow.objects.filter(follower=request.user, following=user)
+    if check_user.exists():
+        raise Http404
+    else:
+        follow = Follow.objects.create(follower=request.user, following=user)
+        follow.save()
+    return redirect('pinterest:profile', username=username)
+
+
+def unfollow(request, username):
+    user = get_object_or_404(User, username=username)
+    following = Follow.objects.filter(following=user).delete()
+    return redirect('pinterest:profile', username=username)

@@ -18,11 +18,33 @@
     <p class="text-muted">@{{ user.username }} . {{ user.profile.pronouns }}</p>
     <p><b><a class="text-black text-decoration-none" href="http://{{user.profile.website}}">{{ user.profile.website }}</a></b> . {{ user.profile.about }}</p>
     <p>0 following</p>
+    {% if request.user == user %}
     <!-- edit profile and share btn -->
     <div class="">
         <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
         <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'pinterest:edit_profile' %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
     </div>
+    
+    {% elif is_following %}
+    <div>
+        <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-4"><b>Message</b></a>
+        <a style="background-color: #000000; border-radius: 50px;" href="{% url 'accounts:unfollow' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-white ms-1 me-4"><b>Unfollow</b></a>
+       
+        <a class="" href="">
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="gUZ pBj U9O kVc" height="20" width="20" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3M3 9c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm18 0c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" fill="#111111" stroke-width="0px"></path></svg>
+        </a>
+    </div>
+    {% else %}
+    <div>
+        <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-4"><b>Message</b></a>
+        <a style="background-color: #e60023; border-radius: 50px;" href="{% url 'accounts:follow' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-white ms-1 me-4"><b>Follow</b></a>
+
+        <a class="" href="">
+            <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="gUZ pBj U9O kVc" height="20" width="20" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3M3 9c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm18 0c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z" fill="#111111" stroke-width="0px"></path></svg>
+        </a>
+    </div>
+    {% endif %}
+
     <!-- saved and created tabs -->
     <div class="mt-5 mb-5">
         {% if request.get_full_path == '/adminuser/_saved/'  %}

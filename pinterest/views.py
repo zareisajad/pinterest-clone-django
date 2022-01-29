@@ -3,8 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from pins.models import Pin
 from pins.forms import SaveToBoard
 from accounts.forms import EditProfileForm
-from accounts.models import User
+from accounts.models import User, Follow
 from boards.models import Board
+
 
 def home(request):
     pins = Pin.objects.all()
@@ -28,7 +29,8 @@ def pin_detail(request, id):
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     boards = user.board_user.all()
-    context = {'title': 'Profile', 'user': user, 'boards':boards}
+    is_following = Follow.objects.filter(following=user).first()
+    context = {'title': 'Profile', 'user': user, 'boards':boards, 'is_following': is_following}
     return render(request, 'profile.html', context)
 
 
@@ -37,7 +39,6 @@ def created_pins(request,username):
     created_pins = user.pin_user.all()
     context = {'created_pins': created_pins}
     return render(request, 'profile.html', context)
-
 
 
 def edit_profile(request):
