@@ -1,9 +1,6 @@
-.edit-profile-input{
-	border: 2px #dddddd solid;
-}
-.about-input {
-	border-radius: 20px;
-}
+.edit-profile-input{border: 2px #dddddd solid;}
+.about-input {border-radius: 20px;}
+
 div#masonry {
 	display: -ms-flexbox;
 	-ms-flex-direction: column;
@@ -15,6 +12,7 @@ div#masonry {
 	width: 290px;
 	margin: 0;
 }
+
 div#masonry img { 
 	width: 100%;
 	border-radius: 20px;
@@ -51,9 +49,7 @@ div#masonry img {
 	}
   }
 
-.img-container {
-	position: relative;
-}
+.img-container {position: relative;}
   
 .img-container .edit-btn {
 	position: absolute;
@@ -75,16 +71,9 @@ div#masonry img {
 	border-radius: 90%;
 }
 
-.img-container img:hover + .edit-btn {
-	display: inline-block;
-}
-
-.description-input {
-	border-radius: 30px;
-}
-.board-input {
-	border-radius: 30px 0px 0px 30px;
-}
+.img-container img:hover + .edit-btn {display: inline-block;}
+.description-input {border-radius: 30px;}
+.board-input {border-radius: 30px 0px 0px 30px;}
 
 .drag-form {
 	margin-top: 60px;
@@ -98,10 +87,33 @@ div#masonry img {
 	margin-bottom: 15px;
 }
 
-header {
-	box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;
+header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
+#commentsForm {display: none;}
+.btn {border-radius: 50px;}
+.following-btn {background-color: #0e0e0e;}
+.main-btn {background-color: #efefef;}
+.red-btn {background-color: #e60023;}
 
+.modal-red-btn {
+	background-color: #e60023;
+	float: right;
+	font-weight: bold;
 }
-#commentsForm{
-	display: none;
+
+.btn-select-border{border-bottom: 2px black solid;}
+
+.save-btn {
+	background-color: #e60023;
+	border-radius: 0 30px 30px 0;
+	border: 0;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 7px;
+	padding-right: 10px;
+	margin-left: -25px;
+}
+.pin-detail-img {
+	height: fit-content;
+	width: 400px;
+	border-radius: 20px;
 }

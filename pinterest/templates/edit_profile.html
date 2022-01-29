@@ -14,7 +14,13 @@
                 <div class="row mt-1">
                     <div class="col-md-1 me-4">
                         <label for="">Photo</label>
-                        <img style="object-fit: cover;" width="80" height="80" class="rounded-circle" src="{{ request.user.profile.photo.url }}" alt="">
+                        <img 
+                            style="object-fit: cover;" 
+                            width="80"
+                            height="80" 
+                            class="rounded-circle" 
+                            src="{{ request.user.profile.photo.url }}" 
+                        />
                     </div>
                     <div class="col-md-5 mt-5 mb-4">
                         {{ form.photo }}
@@ -41,7 +47,7 @@
                         {{ form.website }}
                     </div>
                     <div class="col-md-8 mt-3">
-                        <button type="submit" class="ps-4 pe-4 pt-3 pb-3 text-white" style="float: right; background-color: #e60023; border-radius: 50px;border: 0;"><b>Save</b></button>
+                        <button type="submit" class="red-btn btn ps-4 pe-4 pt-3 pb-3 text-white"><b>Save</b></button>
                     </div>
                 </div>
             </form>
