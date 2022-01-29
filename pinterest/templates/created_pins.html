@@ -25,8 +25,8 @@
     </div>
     <!-- saved and created tabs -->
     <div class="mt-5 mb-5">
-        <a href="{% url 'pinterest:created_pins' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Created</b></a>
-        <a href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b style="border-bottom: 2px black solid;">Saved</b></a>
+        <a href="" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b style="border-bottom: 2px black solid;">Created</b></a>
+        <a href="{% url 'pinterest:profile' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b >Saved</b></a>
     </div>
     <!-- create board modal -->
     <div id="simpleModal" class="modal">
@@ -48,23 +48,13 @@
             </div>
         </div>
     </div>
-    <!-- user boards -->
-    <div id="boards" class="row">
-        {% for board in boards %}
-        <div class="img-container col-md-2 ms-2 me-4 mb-2">
-            <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
-            {% with cover=board.pins.all|slice:"0:1" %}
-            {% if not cover %}
-                <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="../../media/pins/default.png" alt="">
+    <!-- user created pins -->
+    <div class="row">
+        {% for pin in created_pins %}
+        <div class="img-container col-md-2 ms-2 me-4 mb-3">
+            <a href="{% url 'pinterest:pin_detail' pin.id %}">
+                <img style="object-fit: cover; border-radius: 20px;" height="300" width="200" src="{{ pin.image.url }}" alt="">
                 <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
-            {% else %}
-            {% for pin in cover %}
-                <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ pin.image.url }}" alt="">
-                <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path></svg>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
             </a>
         </div>
         {% endfor %}

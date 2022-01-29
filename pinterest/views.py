@@ -27,10 +27,16 @@ def pin_detail(request, id):
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
-    pins = user.pin_user.all()
     boards = user.board_user.all()
-    context = {'title': 'Profile', 'user': user, 'pins':pins, 'boards':boards}
+    context = {'title': 'Profile', 'user': user, 'boards':boards}
     return render(request, 'profile.html', context)
+
+
+def created_pins(request,username):
+    user = get_object_or_404(User, username=username)
+    created_pins = user.pin_user.all()
+    context = {'created_pins': created_pins}
+    return render(request, 'created_pins.html', context)
 
 
 def edit_profile(request):
