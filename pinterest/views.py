@@ -36,7 +36,8 @@ def created_pins(request,username):
     user = get_object_or_404(User, username=username)
     created_pins = user.pin_user.all()
     context = {'created_pins': created_pins}
-    return render(request, 'created_pins.html', context)
+    return render(request, 'profile.html', context)
+
 
 
 def edit_profile(request):
