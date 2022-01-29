@@ -15,6 +15,7 @@ def home(request):
 
 def pin_detail(request, id):
     pin = Pin.objects.filter(id=id).first()
+    is_following = request.user.followers.filter(following=pin.user).first()
     saved_pin = request.user.pin_user.filter(id=id).first()
     form = SaveToBoard(request.user, instance=saved_pin)
     if request.method == 'POST':
@@ -22,14 +23,14 @@ def pin_detail(request, id):
         board = Board.objects.filter(id=request.POST.get('board')).first()
         board.pins.add(pin)
         return redirect('pinterest:pin_detail', pin.id)
-    context = {'pin': pin, 'form': form}
+    context = {'pin': pin, 'form': form, 'is_following': is_following}
     return render(request, 'pin_detail.html', context)
 
 
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     boards = user.board_user.all()
-    is_following = Follow.objects.filter(following=user).first()
+    is_following = request.user.followers.filter(following=user).first()
     context = {'title': 'Profile', 'user': user, 'boards':boards, 'is_following': is_following}
     return render(request, 'profile.html', context)
 

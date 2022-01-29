@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
+from django.http import HttpResponseRedirect
 
 from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
 from .models import User, Follow
@@ -58,10 +59,10 @@ def follow(request, username):
     else:
         follow = Follow.objects.create(follower=request.user, following=user)
         follow.save()
-    return redirect('pinterest:profile', username=username)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def unfollow(request, username):
     user = get_object_or_404(User, username=username)
     following = Follow.objects.filter(following=user).delete()
-    return redirect('pinterest:profile', username=username)
+    return redirect(request.META.get('HTTP_REFERER'))

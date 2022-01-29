@@ -29,14 +29,22 @@
         <h1><b>{{pin.title}}</b></h1>
         <div class="row">
             <div class="col-md-1">
-                <img src="{{ pin.user.profile.photo.url }}" class="rounded-circle" width="50" height="50" alt="">
+                <a href="{% url 'pinterest:profile' pin.user.username %}">
+                    <img src="{{ pin.user.profile.photo.url }}" class="rounded-circle" width="50" height="50" alt="">
+                </a>
             </div>
             <div class="col-md-7 ms-2">
-                <b class="ms-3">{{pin.user.username}}</b>
-                <p class="ms-3" style="font-size: 13px;">0 followers</p>
+                <a href="{% url 'pinterest:profile' pin.user.username %}" class="text-decoration-none text-dark">
+                    <b class="ms-3">{{pin.user.username}}</b>
+                </a>
+                <p class="ms-3" style="font-size: 13px;">{{ pin.user.following.count }} followers</p>
             </div>
             <div class="col-md-1 mt-1 ms-3">
-                <a style="background-color: #efefef; border-radius: 50px;" href="" class="btn text-black"><b>Follow</b></a>
+                {% if is_following %}
+                <a style="background-color: #0e0e0e; border-radius: 50px;" href="{% url 'accounts:unfollow' pin.user.username %}" class="btn text-white"><b>Following</b></a>
+                {% else %}
+                <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'accounts:follow' pin.user.username %}" class="btn text-black"><b>Follow</b></a>
+                {% endif %}
             </div>
         </div>
         <div class="mt-1">{{ pin.description }}</div>
