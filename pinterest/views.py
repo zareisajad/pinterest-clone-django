@@ -31,14 +31,15 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     boards = user.board_user.all()
     is_following = request.user.followers.filter(following=user).first()
-    context = {'title': 'Profile', 'user': user, 'boards':boards, 'is_following': is_following}
+    context = {'user': user, 'boards':boards, 'is_following': is_following}
     return render(request, 'profile.html', context)
 
 
-def created_pins(request,username):
+def created_pins(request, username):
     user = get_object_or_404(User, username=username)
     created_pins = user.pin_user.all()
-    context = {'created_pins': created_pins}
+    is_following = request.user.followers.filter(following=user).first()
+    context = {'created_pins': created_pins, 'user': user, 'is_following': is_following}
     return render(request, 'profile.html', context)
 
 

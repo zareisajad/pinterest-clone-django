@@ -44,7 +44,7 @@
     {% endif %}
     <!-- saved and created tabs -->
     <div class="mt-5 mb-5">
-        {% if request.get_full_path == '/adminuser/_saved/'  %}
+        {% if '/_saved/' in request.get_full_path  %}
         <a href="{% url 'pinterest:created_pins' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Created</b></a>
         <a href="{% url 'pinterest:profile' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b style="border-bottom: 2px black solid;">Saved</b></a>
         {% else %}
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-    {% if request.get_full_path == '/adminuser/_saved/'  %}
+    {% if '_saved' in request.get_full_path %}
     <!-- user boards -->
     <div id="boards" class="row">
         {% for board in boards %}

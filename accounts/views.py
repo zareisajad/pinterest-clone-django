@@ -54,7 +54,9 @@ def user_logout(request):
 def follow(request, username):
     user = get_object_or_404(User, username=username)
     check_user = Follow.objects.filter(follower=request.user, following=user)
-    if check_user.exists():
+    if user == request.user:
+        raise Http404
+    elif check_user.exists():
         raise Http404
     else:
         follow = Follow.objects.create(follower=request.user, following=user)

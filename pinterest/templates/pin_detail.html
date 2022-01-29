@@ -39,6 +39,7 @@
                 </a>
                 <p class="ms-3" style="font-size: 13px;">{{ pin.user.following.count }} followers</p>
             </div>
+            {% if pin.user != request.user %}
             <div class="col-md-1 mt-1 ms-3">
                 {% if is_following %}
                 <a style="background-color: #0e0e0e; border-radius: 50px;" href="{% url 'accounts:unfollow' pin.user.username %}" class="btn text-white"><b>Following</b></a>
@@ -46,6 +47,7 @@
                 <a style="background-color: #efefef; border-radius: 50px;" href="{% url 'accounts:follow' pin.user.username %}" class="btn text-black"><b>Follow</b></a>
                 {% endif %}
             </div>
+            {% endif %}
         </div>
         <div class="mt-1">{{ pin.description }}</div>
         <h5 class="mt-3">
