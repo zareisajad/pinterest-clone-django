@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from .models import Pin
+from .models import Pin, Comment
 from boards.models import Board
 
 
@@ -53,3 +53,15 @@ class EditPinForm(ModelForm):
                 visible.field.widget.attrs['class'] = 'description-input border form-control'
             else:
                 visible.field.widget.attrs['class'] = 'form-control border rounded-pill'
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['text'].widget.attrs['placeholder'] = 'Add comment'
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control rounded-pill border'

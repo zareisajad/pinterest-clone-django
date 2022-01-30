@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from pins.models import Pin
-from pins.forms import SaveToBoard, EditPinForm
+from pins.forms import SaveToBoard, EditPinForm, CommentForm
 from accounts.forms import EditProfileForm
 from accounts.models import User, Follow
 from boards.models import Board
@@ -19,12 +19,19 @@ def pin_detail(request, id):
     saved_pin = request.user.pin_user.filter(id=id).first()
     form = SaveToBoard(request.user, instance=saved_pin)
     edit_form = EditPinForm(request.user, instance=pin)
+    comment_form = CommentForm()
     if request.method == 'POST':
         form = SaveToBoard(request.user, request.POST, instance=saved_pin)
         board = Board.objects.filter(id=request.POST.get('board')).first()
         board.pins.add(pin)
         return redirect('pinterest:pin_detail', pin.id)
-    context = {'pin': pin, 'form': form, 'is_following': is_following, 'edit_form': edit_form}
+    context = {
+        'pin': pin,
+        'form': form,
+        'is_following': is_following,
+        'edit_form': edit_form,
+        'comment_form': comment_form
+    }
     return render(request, 'pin_detail.html', context)
 
 

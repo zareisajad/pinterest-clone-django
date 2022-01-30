@@ -9,5 +9,6 @@ urlpatterns = [
     path('create/', views.create_pin, name='create_pin'),
     path('edit/<int:id>', views.edit_pin, name='edit_pin'),
     path('delete/<int:id>', views.delete_pin, name='delete_pin'),
+    path('comment/<int:id>', views.add_comment, name='add_comment'),
 
 ]

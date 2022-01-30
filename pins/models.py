@@ -28,3 +28,13 @@ class Pin(models.Model):
             return 'video'
         elif 'image' in file_type:
             return 'image'
+
+    
+class Comment(models.Model):
+    pin = models.ForeignKey(Pin, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    text = models.CharField(max_length=250)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user} says {self.text}'

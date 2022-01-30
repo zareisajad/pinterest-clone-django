@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from boards.models import Board
-from .forms import CreatePinForm, EditPinForm
+from .forms import CreatePinForm, EditPinForm, CommentForm
 from .models import Pin
 
 
@@ -32,3 +32,15 @@ def edit_pin(request, id):
 def delete_pin(request, id):
     pin = get_object_or_404(Pin, id=id).delete()
     return redirect('pinterest:profile', request.user.username)
+
+
+def add_comment(request, id):
+    pin = get_object_or_404(Pin, id=id)
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            instance = comment_form.save(commit=False)
+            instance.pin = pin
+            instance.user = request.user
+            instance.save()
+    return redirect(request.META.get('HTTP_REFERER'))

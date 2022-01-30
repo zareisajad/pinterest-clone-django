@@ -87,7 +87,7 @@ div#masonry img, video {
 }
 
 header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
-#commentsForm {display: none;}
+
 .btn {border-radius: 50px;}
 .following-btn {background-color: #0e0e0e;}
 .main-btn {background-color: #efefef;}
@@ -145,4 +145,9 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 	border-radius: 20px;
 	width:280px;
 	height:auto;
+}
+
+.comment-text-border {
+	border-radius: 20px;
+
 }
