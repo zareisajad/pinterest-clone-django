@@ -17,14 +17,17 @@ def pin_detail(request, id):
     pin = Pin.objects.filter(id=id).first()
     is_following = request.user.followers.filter(following=pin.user).first()
     saved_pin = request.user.pin_user.filter(id=id).first()
+    
     form = SaveToBoard(request.user, instance=saved_pin)
     edit_form = EditPinForm(request.user, instance=pin)
     comment_form = CommentForm()
+
     if request.method == 'POST':
         form = SaveToBoard(request.user, request.POST, instance=saved_pin)
         board = Board.objects.filter(id=request.POST.get('board')).first()
         board.pins.add(pin)
         return redirect('pinterest:pin_detail', pin.id)
+
     context = {
         'pin': pin,
         'form': form,

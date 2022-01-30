@@ -32,7 +32,7 @@ class Pin(models.Model):
     
 class Comment(models.Model):
     pin = models.ForeignKey(Pin, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='all_comments')
     text = models.CharField(max_length=250)
     date_created = models.DateTimeField(auto_now_add=True)
 
