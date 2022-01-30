@@ -126,7 +126,6 @@
                   <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
                 </svg>
               {% endif %}
-
             {% endfor %}
             {% endif %}
             {% endwith %}
@@ -141,15 +140,20 @@
         {% for pin in created_pins %}
         <div class="img-container col-md-2 ms-2 me-4 mb-3">
             <a href="{% url 'pinterest:pin_detail' pin.id %}">
-                <img style="object-fit: cover; border-radius: 20px;" height="300" width="200" src="{{ pin.file.url }}" alt="">
-                <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                    <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                </svg>
+                {% if pin.get_type == 'video' %}
+                    <video autoplay muted>
+                        <source src="{{ pin.file.url }}">
+                    </video>
+                {% elif pin.get_type == 'image' %}
+                    <img style="object-fit: cover; border-radius: 20px;" height="300" width="200" src="{{ pin.file.url }}" alt="">
+                    <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                        <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+                    </svg>
+                {% endif %}
             </a>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 </div>
-
 {% endblock %}

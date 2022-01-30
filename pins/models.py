@@ -22,8 +22,8 @@ class Pin(models.Model):
         return self.title
 
     def get_type(self):
-        # file_type might be ('video/mp4', None) or ('image/jpeg..etc', None)
         file_type = guess_type(self.file.url, strict=True)[0]
+        # file_type might be ('video/mp4', None) or ('image/jpeg..etc', None)
         if 'video' in file_type:
             return 'video'
         elif 'image' in file_type:

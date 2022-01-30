@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
 from pins.models import Pin
-from pins.forms import SaveToBoard
+from pins.forms import SaveToBoard, EditPinForm
 from accounts.forms import EditProfileForm
 from accounts.models import User, Follow
 from boards.models import Board
@@ -18,12 +18,13 @@ def pin_detail(request, id):
     is_following = request.user.followers.filter(following=pin.user).first()
     saved_pin = request.user.pin_user.filter(id=id).first()
     form = SaveToBoard(request.user, instance=saved_pin)
+    edit_form = EditPinForm(request.user, instance=pin)
     if request.method == 'POST':
         form = SaveToBoard(request.user, request.POST, instance=saved_pin)
         board = Board.objects.filter(id=request.POST.get('board')).first()
         board.pins.add(pin)
         return redirect('pinterest:pin_detail', pin.id)
-    context = {'pin': pin, 'form': form, 'is_following': is_following}
+    context = {'pin': pin, 'form': form, 'is_following': is_following, 'edit_form': edit_form}
     return render(request, 'pin_detail.html', context)
 
 
@@ -39,13 +40,19 @@ def created_pins(request, username):
     user = get_object_or_404(User, username=username)
     created_pins = user.pin_user.all()
     is_following = request.user.followers.filter(following=user).first()
-    context = {'created_pins': created_pins, 'user': user, 'is_following': is_following}
+    context = {
+        'created_pins': created_pins,
+        'user': user,
+        'is_following': is_following
+    }
     return render(request, 'profile.html', context)
 
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        form = EditProfileForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
         if form.is_valid():
             form.save()
             return redirect('pinterest:profile', request.user.username)

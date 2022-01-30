@@ -117,3 +117,14 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 	width: 400px;
 	border-radius: 20px;
 }
+
+.edit-pin-modal {
+	background-color: #ffffff;
+	margin: 10% auto;
+	width: 70%;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+	animation-name: modalopen;
+	animation-duration: 1s;
+	border-radius: 35px;
+	overflow: auto;
+}

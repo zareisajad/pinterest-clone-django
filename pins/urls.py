@@ -7,4 +7,6 @@ app_name = 'pins'
 
 urlpatterns = [
     path('create/', views.create_pin, name='create_pin'),
+    path('edit/<int:id>', views.edit_pin, name='edit_pin'),
+
 ]

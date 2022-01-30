@@ -2,19 +2,18 @@
 const createBoardBtn = document.querySelector("#createBoardBtn");
 const modal = document.querySelector("#simpleModal");
 
-createBoardBtn.addEventListener("click", openModal);
-window.addEventListener("click", clickOutside);
-
-function openModal(e) {
+createBoardBtn.addEventListener("click", (e) => {
   e.preventDefault();
   modal.style.display = "block";
-}
 
-function clickOutside(e) {
+});
+
+window.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.style.display = "none";
   }
-}
+});
+
 
 // sending board name to /boards/<board_name>
 document.querySelector('#form').addEventListener('submit', (e) => {

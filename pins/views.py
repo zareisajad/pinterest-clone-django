@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 from boards.models import Board
-from .forms import CreatePinForm
+from .forms import CreatePinForm, EditPinForm
+from .models import Pin
 
 
 def create_pin(request):
@@ -17,3 +18,13 @@ def create_pin(request):
     form = CreatePinForm(request.user)
     context = {'title': 'create pin', 'form': form} 
     return render(request, 'create_pin.html', context)
+
+
+def edit_pin(request, id):
+    pin = Pin.objects.filter(id=id).first()
+    if request.method == 'POST':
+        form = EditPinForm(request.user, request.POST, instance=pin)
+        if form.is_valid():
+            form.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
