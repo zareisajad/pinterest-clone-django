@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="col-md-2"></div>
-<div class="col-md-8 row pin-detail-container">
+<div class="col-md-8 pt-2 pb-2 row pin-detail-container">
     <div class="col-md-6">
         {% if pin.get_type == 'video' %}
         <video autoplay muted controls class="pin-detail-img">
@@ -22,9 +22,8 @@
                     </svg>
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Download image</a></li>
                     <li><a id="editPinBtn" class="dropdown-item" href="#">Edit pin</a></li>
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                    <li><a class="dropdown-item" href="">Download image</a></li>
                 </ul>
             </div>
             <div class="col-md-4">{{form.board}}</div>
@@ -92,16 +91,16 @@
             </form>
             <div class="mt-3">
                 <a href="" style="float: right;" class="main-btn btn me-2 text-black"><b>Cancel</b></a>
-                <a href="" class="main-btn btn text-black"><b>Delete</b></a>
+                <a href="{% url 'pins:delete_pin' pin.id %}" class="main-btn btn text-black"><b>Delete</b></a>
             </div>
         </div>
         <div class="col-md-4">
             {% if pin.get_type == 'video' %}
-            <video class="p-2" autoplay muted  width="280" height="450" style="border-radius: 20px;">
+            <video class="p-2 edit-modal-video" autoplay muted>
                 <source src="{{ pin.file.url }}">
             </video>
             {% elif pin.get_type == 'image' %}
-            <img style="object-fit: cover; border-radius: 20px;" width="280" height="450" src="{{ pin.file.url }}" class="mt-4 p-2" />
+            <img src="{{ pin.file.url }}" class="mt-4 p-2 edit-modal-img" />
             {% endif %}
         </div>
     </div>

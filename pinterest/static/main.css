@@ -83,7 +83,6 @@ div#masonry img, video {
 .pin-detail-container{
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 	border-radius: 30px;
-	padding: 10px;
 	margin-bottom: 15px;
 }
 
@@ -116,6 +115,7 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 	height: fit-content;
 	width: 400px;
 	border-radius: 20px;
+	margin-left: -15px;
 }
 
 .edit-pin-modal {
@@ -127,4 +127,22 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 	animation-duration: 1s;
 	border-radius: 35px;
 	overflow: auto;
+}
+
+.video {
+	object-fit: cover;
+	width: 200px;
+	height: 300px;
+}
+
+.edit-modal-video {
+	object-fit: cover;
+	width: 280px;
+	height: 480px;
+}
+
+.edit-modal-img{
+	border-radius: 20px;
+	width:280px;
+	height:auto;
 }

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from boards.models import Board
 from .forms import CreatePinForm, EditPinForm
@@ -21,10 +21,14 @@ def create_pin(request):
 
 
 def edit_pin(request, id):
-    pin = Pin.objects.filter(id=id).first()
+    pin = get_object_or_404(Pin, id=id)
     if request.method == 'POST':
         form = EditPinForm(request.user, request.POST, instance=pin)
         if form.is_valid():
             form.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
+
+def delete_pin(request, id):
+    pin = get_object_or_404(Pin, id=id).delete()
+    return redirect('pinterest:profile', request.user.username)
