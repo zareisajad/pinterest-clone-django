@@ -1,16 +1,18 @@
-import re
-from unittest import removeResult
-from urllib import request
 from django.db import models
+from mimetypes import guess_type
 
 from accounts.models import User
 from boards.models import Board
 
 
 class Pin(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pin_user')
-    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='boards')
-    image = models.ImageField(upload_to='pins')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='pin_user'
+    )
+    board = models.ForeignKey(
+        Board, on_delete=models.CASCADE, related_name='boards'
+    )
+    file = models.FileField(upload_to='pins')
     title = models.CharField(max_length=250)
     link = models.CharField(max_length=250)
     description = models.TextField()
@@ -18,3 +20,11 @@ class Pin(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_type(self):
+        # file_type might be ('video/mp4', None) or ('image/jpeg..etc', None)
+        file_type = guess_type(self.file.url, strict=True)[0]
+        if 'video' in file_type:
+            return 'video'
+        elif 'image' in file_type:
+            return 'image'

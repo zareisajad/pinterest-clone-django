@@ -4,8 +4,15 @@
 <div id="masonry">
     {% for pin in pins %}
     <a class="m-2" href="{% url 'pinterest:pin_detail' pin.id %}">
-        <img src="{{ pin.image.url }}" alt="">
+        {% if pin.get_type == 'video' %}
+        <video autoplay muted>
+            <source src="{{ pin.file.url }}">
+        </video>
+        {% elif pin.get_type == 'image' %}
+        <img src="{{ pin.file.url }}">
+        {% endif %}
     </a>
     {% endfor %}
 </div>
+
 {% endblock %}

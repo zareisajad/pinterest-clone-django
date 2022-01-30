@@ -3,7 +3,13 @@
 <div class="col-md-2"></div>
 <div class="col-md-8 row pin-detail-container">
     <div class="col-md-6">
-        <img src="{{ pin.image.url }}" class="pin-detail-img">
+        {% if pin.get_type == 'video' %}
+        <video autoplay muted controls class="pin-detail-img">
+            <source src="{{ pin.file.url }}">
+        </video>
+        {% elif pin.get_type == 'image' %}
+        <img src="{{ pin.file.url }}" class="pin-detail-img">
+        {% endif %}
     </div>
     <div class="col-md-6 mt-4">
         <form class="mb-3" method="post">

@@ -7,7 +7,7 @@ from boards.models import Board
 class CreatePinForm(ModelForm):
     class Meta:
         model = Pin
-        fields = ['board', 'image', 'title', 'description', 'link']
+        fields = ['board', 'file', 'title', 'description', 'link']
 
     def __init__(self, user, *args, **kwargs):
         super(CreatePinForm, self).__init__(*args, **kwargs)
