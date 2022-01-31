@@ -25,12 +25,18 @@ def edit_pin(request, id):
     if request.method == 'POST':
         form = EditPinForm(request.user, request.POST, instance=pin)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.user = request.user
+            board = Board.objects.filter(id=instance.board.id).first()
+            instance.save()
+            board.pins.add(instance)
     return redirect(request.META.get('HTTP_REFERER'))
 
 
 def delete_pin(request, id):
-    pin = get_object_or_404(Pin, id=id).delete()
+    pin = get_object_or_404(Pin, id=id)
+    if request.user == pin.user:
+        pin.delete()
     return redirect('pinterest:profile', request.user.username)
 
 
