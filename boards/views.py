@@ -12,7 +12,9 @@ def create_board(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            check_name = request.user.board_user.filter(title=instance.title).first()
+            check_name = request.user.board_user.filter(
+                title=instance.title
+            ).first()
             if not check_name:
                 instance.save()
     return redirect('accounts:profile', request.user.username)

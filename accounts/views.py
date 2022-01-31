@@ -77,7 +77,12 @@ def profile(request, username):
     boards = user.board_user.all()
     is_following = request.user.followers.filter(following=user).first()
     create_board_form = CreateBoardForm()
-    context = {'user': user, 'boards':boards, 'is_following': is_following, 'create_board_form':create_board_form}
+    context = {
+        'user': user,
+        'boards':boards,
+        'is_following': is_following,
+        'create_board_form':create_board_form
+    }
     return render(request, 'profile.html', context)
 
 
