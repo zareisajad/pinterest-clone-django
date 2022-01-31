@@ -5,7 +5,7 @@ from . import views
 app_name = 'boards'
 
 urlpatterns = [
-    path('<str:board_name>/', views.create_board, name='create_board'),
+    path('create/', views.create_board, name='create_board'),
     path('<str:username>/<str:board_name>/', views.board_detail, name='board_detail'),
     path('edit/<int:id>/', views.edit_board, name='edit_board'),
 ]

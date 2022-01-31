@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-
 from .forms import CreatePinForm, EditPinForm, CommentForm, SaveToBoard
 from .models import Pin, Comment
 from boards.models import Board
@@ -69,14 +68,12 @@ def delete_comment(request, id):
 def pin_detail(request, id):
     pin = Pin.objects.filter(id=id).first()
     is_following = request.user.followers.filter(following=pin.user).first()
-    saved_pin = []
-    for i in request.user.board_user.all():
-        saved_pin.append(i.pins.filter(id=id).first())
-    form = SaveToBoard(request.user, instance=saved_pin[-1])
+    saved_pin = request.user.pin_user.filter(id=id).first()
+    form = SaveToBoard(request.user, instance=saved_pin)
     edit_form = EditPinForm(request.user, instance=pin)
     comment_form = CommentForm()
     if request.method == 'POST':
-        form = SaveToBoard(request.user, request.POST, instance=saved_pin[-1])
+        form = SaveToBoard(request.user, request.POST, instance=saved_pin)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = pin.user

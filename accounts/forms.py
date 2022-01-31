@@ -4,7 +4,6 @@ from django.forms import ModelForm
 from .models import Profile
 
 
-
 class UserLoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(

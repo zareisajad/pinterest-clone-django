@@ -85,39 +85,51 @@
         <div class="modal-content ps-5 pb-5 pe-5">
             <h3 class="mt-4 mb-3"><b>Create Board</b></h3>
             <div class="row">
-                <form id="form">
+                <form method="post" action="{% url 'boards:create_board' %}">
+                    {% csrf_token %}
                     <label style="float: left;" for="">Name</label>
-                    <input 
-                        class="form-control border rounded-pill p-2 mt-1"
-                        id="board-name-input" type="text" size="100" 
-                        placeholder='Like "Places to Go" or "Recipes to Make"'
-                    />
-                    <div class="col-md-1 mt-4">                            
-                        <input name="private" value="private" style="float: left;" type="checkbox" class="form-check-input mt-1">
+                    {{ create_board_form.title }}                        
+                    <div class="col-md-1 mt-4">    
+                        {{ create_board_form.is_private }}                        
                     </div>
                     <div style="text-align:left" class="col-md-11">
                         <b class="ms-1">Keep this board secret</b>
                         <p class="text-muted ms-4">So only you and collaborators can see it. Learm more</p>
                     </div>
-                    <input class="modal-red-btn btn text-white mt-3" id="room-name-submit" type="submit" value="create">
+                    <input class="modal-red-btn btn text-white mt-3" type="submit" value="create">
                 </form>
             </div>
         </div>
     </div>
-
     {% if '_saved' in request.get_full_path %}
     <!-- user boards -->
     <div id="boards" class="row">
         {% for board in boards %}
-        <div class="img-container col-md-2 ms-2 me-4 mb-2">
-            <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
-                <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
-                <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                    <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                </svg>
-            <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
-            </a>
-        </div>
+            {% if request.user != user %}
+                <!-- do not show private boards to people -->
+                {% if not board.is_private %}
+                    <div class="img-container col-md-2 ms-2 me-4 mb-2">
+                        <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
+                            <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
+                            <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                                <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+                            </svg>
+                        <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
+                        </a>
+                    </div>
+                {% endif %}
+                {% elif request.user == user %}
+                <div class="img-container col-md-2 ms-2 me-4 mb-2">
+                    <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
+                        <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
+                        <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                            <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+                        </svg>
+                        <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
+                    </a>
+                </div>  
+                {% endif %}
+                
         {% endfor %}
     </div>
     {% else %}

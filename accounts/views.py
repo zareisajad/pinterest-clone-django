@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 
+from boards.forms import CreateBoardForm
 from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
 from .models import User, Follow
 
@@ -75,7 +76,8 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     boards = user.board_user.all()
     is_following = request.user.followers.filter(following=user).first()
-    context = {'user': user, 'boards':boards, 'is_following': is_following}
+    create_board_form = CreateBoardForm()
+    context = {'user': user, 'boards':boards, 'is_following': is_following, 'create_board_form':create_board_form}
     return render(request, 'profile.html', context)
 
 

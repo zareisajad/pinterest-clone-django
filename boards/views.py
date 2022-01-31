@@ -2,13 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import Board
+from .forms import CreateBoardForm
 
 
 @login_required
-def create_board(request, board_name):
-    check_name = request.user.board_user.filter(title=board_name).first()
-    if not check_name:
-        board = Board.objects.create(title=board_name, user=request.user)
+def create_board(request):
+    if request.method == 'POST':
+        form = CreateBoardForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            check_name = request.user.board_user.filter(title=instance.title).first()
+            if not check_name:
+                instance.save()
     return redirect('accounts:profile', request.user.username)
 
 
