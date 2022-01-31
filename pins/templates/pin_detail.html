@@ -12,7 +12,7 @@
         {% endif %}
     </div>
     <div class="col-md-6 mt-4">
-        <form class="mb-3" method="post">
+        <form action="{% url 'boards:save_to_board' pin.id %}" class="mb-3" method="post">
         <div class="row">
             {% csrf_token %}
             <div class="dropdown col-md-6 mt-2">
@@ -26,7 +26,7 @@
                     <li><a class="dropdown-item" href="{{ pin.file.url }}" download>Download image</a></li>
                 </ul>
             </div>
-            <div class="col-md-4">{{form.board}}</div>
+            <div class="col-md-4">{{save_to_board_form.board}}</div>
             <div class="col-md-1">
                 <button type="submit" class="save-btn text-white"><b>Save</b></button>
             </div>

@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
+from pins.models import Pin
+from pins.forms import SaveToBoard
 from .models import Board
 from .forms import CreateBoardForm, EditBoardForm
+
 
 @login_required
 def create_board(request):
@@ -38,3 +41,18 @@ def edit_board(request, id):
     form = EditBoardForm(instance=board)
     context = {'board': board ,'form': form}
     return render(request, 'edit_board.html', context)
+
+
+@login_required
+def save_to_board(request, id):
+    pin = Pin.objects.filter(id=id).first()
+    saved_pin = request.user.pin_user.filter(id=id).first()
+    if request.method == 'POST':
+        form = SaveToBoard(request.user, request.POST, instance=saved_pin)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = pin.user
+            instance.save()
+            board = Board.objects.filter(id=request.POST.get('board')).first()
+            board.pins.add(pin)
+    return redirect(request.META.get('HTTP_REFERER'))
