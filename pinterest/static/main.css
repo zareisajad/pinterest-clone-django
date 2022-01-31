@@ -131,6 +131,7 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 	object-fit: cover;
 	width: 200px;
 	height: 300px;
+	border-radius: 20px;
 }
 
 .edit-modal-video {

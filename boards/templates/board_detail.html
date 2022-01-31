@@ -1,18 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div id="masonry">
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 text-center">
+        <h1><b>{{ board.title }}</b></h1>
+        <a href="{% url 'boards:edit_board' board.id %}" class="text-decoration-none">
+            <svg class="main-btn p-1 rounded-circle" class="gUZ pBj U9O kVc" height="25" width="25" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+            </svg>
+        </a>
+        <img style="object-fit: cover;" src="{{ board.cover.url }}" class="rounded-circle" width="60" height="60">
+        <div class="mt-2">{{ board.description }}</div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row mt-5">
     {% for pin in pins %}
-    <a class="m-2" href="{% url 'pins:pin_detail' pin.id %}">
-        {% if pin.get_type == 'video' %}
-        <video autoplay muted>
-            <source src="{{ pin.file.url }}">
-        </video>
-        {% elif pin.get_type == 'image' %}
-        <img src="{{ pin.file.url }}">
-        {% endif %}
-    </a>
+    <div class="img-container col-md-2 mb-3">
+        <a href="{% url 'pins:pin_detail' pin.id %}">
+            {% if pin.get_type == 'video' %}
+                <video autoplay muted loop class="video" >
+                    <source src="{{ pin.file.url }}" >
+                </video>
+            {% elif pin.get_type == 'image' %}
+                <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
+            {% endif %}
+        </a>
+    </div>
     {% endfor %}
 </div>
+
 
 {% endblock %}

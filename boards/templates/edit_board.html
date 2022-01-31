@@ -7,7 +7,7 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
-                    <img class="rounded" src="{{ board.cover.url }}" width="180" height="180">
+                    <img style="object-fit: cover;" class="rounded" src="{{ board.cover.url }}" width="180" height="180">
                 </div>
                 <div class="mt-5 col-md-8">
                     <label for="">Set a cover for this board</label>
