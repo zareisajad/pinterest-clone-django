@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import Board
-from .forms import CreateBoardForm
-
+from .forms import CreateBoardForm, EditBoardForm
 
 @login_required
 def create_board(request):
@@ -30,6 +29,12 @@ def board_detail(request, username, board_name):
 
 @login_required
 def edit_board(request, id):
-    board = get_object_or_404(Board, id=id)
-    return redirect(request.META.get('HTTP_REFERER'))
-
+    board = request.user.board_user.filter(id=id).first()
+    if request.method == 'POST':
+        form = EditBoardForm(request.POST, request.FILES, instance=board)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:profile', request.user.username)
+    form = EditBoardForm(instance=board)
+    context = {'board': board ,'form': form}
+    return render(request, 'edit_board.html', context)

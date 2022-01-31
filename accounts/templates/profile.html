@@ -16,7 +16,6 @@
         </ul>
     </div>
     {% endif %}
-
     <!-- user public information -->
     <!-- user photo -->
     <img style="object-fit: cover;" width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
@@ -108,28 +107,27 @@
             {% if request.user != user %}
                 <!-- do not show private boards to people -->
                 {% if not board.is_private %}
-                    <div class="img-container col-md-2 ms-2 me-4 mb-2">
+                    <div class="col-md-2 ms-2 me-4 mb-2">
                         <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
                             <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
-                            <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                                <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                            </svg>
-                        <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
+                            <h4 class="mt-2 text-black" style="float: left; width: 130px; overflow: hidden;"><b>{{ board.title }}</b></h4>
                         </a>
-                    </div>
+                    </div>  
                 {% endif %}
                 {% elif request.user == user %}
-                <div class="img-container col-md-2 ms-2 me-4 mb-2">
-                    <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
-                        <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
-                        <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                            <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                        </svg>
-                        <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
-                    </a>
-                </div>  
+                    <div class="col-md-2 ms-2 me-4 mb-2">
+                        <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
+                            <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
+                            <h4 class="mt-2 text-black" style="float: left; width: 130px; overflow: hidden;"><b>{{ board.title }}</b></h4>
+                        </a>
+                        <a style="float: right;" href="{% url 'boards:edit_board' board.id %}">
+                            <div class="mb-2"></div>
+                            <svg class="main-btn p-1 rounded-circle" class="gUZ pBj U9O kVc" height="25" width="25" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
+                                <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
+                            </svg>
+                        </a>
+                    </div>  
                 {% endif %}
-                
         {% endfor %}
     </div>
     {% else %}
