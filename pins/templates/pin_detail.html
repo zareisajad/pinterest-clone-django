@@ -22,7 +22,9 @@
                     </svg>
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    {% if request.user == pin.user %}
                     <li><a id="editPinBtn" class="dropdown-item" href="#">Edit pin</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{{ pin.file.url }}" download>Download image</a></li>
                 </ul>
             </div>

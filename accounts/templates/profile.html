@@ -110,7 +110,7 @@
                     <div class="col-md-2 ms-2 me-4 mb-2">
                         <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
                             <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
-                            <h4 class="mt-2 text-black" style="float: left; width: 130px; overflow: hidden;"><b>{{ board.title }}</b></h4>
+                            <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
                         </a>
                     </div>  
                 {% endif %}
@@ -118,7 +118,7 @@
                     <div class="col-md-2 ms-2 me-4 mb-2">
                         <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
                             <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
-                            <h4 class="mt-2 text-black" style="float: left; width: 130px; overflow: hidden;"><b>{{ board.title }}</b></h4>
+                            <h4 class="mt-2 text-black" style="float: left;  overflow: hidden;"><b>{{ board.title }}</b></h4>
                         </a>
                         <a style="float: right;" href="{% url 'boards:edit_board' board.id %}">
                             <div class="mb-2"></div>

@@ -27,7 +27,7 @@ def create_pin(request):
 @login_required
 def edit_pin(request, id):
     pin = get_object_or_404(Pin, id=id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user == pin.user:
         form = EditPinForm(request.user, request.POST, instance=pin)
         if form.is_valid():
             instance = form.save(commit=False)
