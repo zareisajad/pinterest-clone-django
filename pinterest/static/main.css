@@ -13,9 +13,10 @@ div#masonry {
 	margin: 0;
 }
 
-div#masonry img, video { 
+div#masonry img, div#masonry video { 
 	width: 100%;
 	border-radius: 20px;
+	cursor: zoom-in;
 }
 
 .modal {
@@ -149,5 +150,4 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 
 .comment-text-border {
 	border-radius: 20px;
-
 }

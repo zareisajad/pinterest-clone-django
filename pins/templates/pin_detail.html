@@ -36,12 +36,12 @@
         <h1><b>{{pin.title}}</b></h1>
         <div class="row">
             <div class="col-md-1">
-                <a href="{% url 'pinterest:profile' pin.user.username %}">
+                <a href="{% url 'accounts:profile' pin.user.username %}">
                     <img src="{{ pin.user.profile.photo.url }}" class="rounded-circle" width="50" height="50">
                 </a>
             </div>
             <div class="col-md-7 ms-1">
-                <a href="{% url 'pinterest:profile' pin.user.username %}" class="text-decoration-none text-dark">
+                <a href="{% url 'accounts:profile' pin.user.username %}" class="text-decoration-none text-dark">
                     <b class="ms-3">{{pin.user.username}}</b>
                 </a>
                 <p class="ms-3" style="font-size: 13px;">{{ pin.user.following.count }} followers</p>

@@ -10,4 +10,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='user_logout'),
     path('follow/<str:username>', views.follow, name='follow'),
     path('unfollow/<str:username>', views.unfollow, name='unfollow'),
+    path('<str:username>/_saved/', views.profile, name='profile'),
+    path('settings/edit-profile/', views.edit_profile, name='edit_profile'),
 ]

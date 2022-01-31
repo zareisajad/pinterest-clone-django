@@ -2,6 +2,7 @@
 {% block content %}
 <div class="col-md-1"></div>
 <div class="col-md-10 text-center">
+    {% if request.user == user %}
     <!-- plus icon | create board and pin dropdown menu -->
     <div class="dropdown">
         <a style="float: right; margin-top: 430px;" href="#"class="d-block link-dark text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -14,6 +15,8 @@
             <li><a class="dropdown-item" href="{% url 'pins:create_pin' %}">Create Pin</a></li>
         </ul>
     </div>
+    {% endif %}
+
     <!-- user public information -->
     <!-- user photo -->
     <img style="object-fit: cover;" width="150" height="150" class="rounded-circle" src="{{ user.profile.photo.url }}" alt="">
@@ -30,7 +33,7 @@
     <!-- edit profile and share btn -->
     <div class="mt-3">
         <a href="#" class="main-btn btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Share</b></a>
-        <a href="{% url 'pinterest:edit_profile' %}" class="main-btn btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
+        <a href="{% url 'accounts:edit_profile' %}" class="main-btn btn ps-3 pt-2 pb-2 pe-3 text-black ms-1"><b>Edit Profile</b></a>
     </div>
     {% elif is_following %}
     <div class="mt-3">
@@ -62,17 +65,17 @@
     <!-- saved and created tab -->
     <div class="mt-5 mb-5">
         {% if '/_saved/' in request.get_full_path  %}
-        <a href="{% url 'pinterest:created_pins' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1">
+        <a href="{% url 'pins:created_pins' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1">
             <b>Created</b>
         </a>
-        <a href="{% url 'pinterest:profile' user.username %}" class="btn-select-border text-decoration-none ps-3 pt-2 pb-2 pe-3 text-black ms-1">
+        <a href="{% url 'accounts:profile' user.username %}" class="btn-select-border text-decoration-none ps-3 pt-2 pb-2 pe-3 text-black ms-1">
             <b>Saved</b>
         </a>
         {% else %}
-        <a href="{% url 'pinterest:created_pins' user.username %}" class="btn-select-border text-decoration-none ps-3 pt-2 pb-2 pe-3 text-black ms-1">
+        <a href="{% url 'pins:created_pins' user.username %}" class="btn-select-border text-decoration-none ps-3 pt-2 pb-2 pe-3 text-black ms-1">
             <b>Created</b>
         </a>
-        <a href="{% url 'pinterest:profile' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1">
+        <a href="{% url 'accounts:profile' user.username %}" class="btn ps-3 pt-2 pb-2 pe-3 text-black ms-1">
             <b>Saved</b>
         </a>
         {% endif %}
@@ -107,29 +110,10 @@
         {% for board in boards %}
         <div class="img-container col-md-2 ms-2 me-4 mb-2">
             <a href="{% url 'boards:board_detail' username=board.user.username board_name=board.title %}">
-            {% with cover=board.pins.all|slice:"0:1" %}
-            {% if not cover %}
-                <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="../../media/pins/default.png" alt="">
+                <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ board.cover.url }}">
                 <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
                     <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
                 </svg>
-            {% else %}
-            {% for pin in cover %}
-                {% if pin.get_type == 'image' %} 
-                    <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="{{ pin.file.url }}">
-                    <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                        <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                    </svg>
-                {% else %}
-                    <img style="object-fit: cover; border-radius: 20px;" height="200" width="200" src="../../media/pins/default.png" alt="">
-                    <svg class="edit-btn gUZ pBj U9O kVc" height="38" width="38" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img">
-                        <path d="m13.386 6.018 4.596 4.596L7.097 21.499 1 22.999l1.501-6.096L13.386 6.018zm8.662-4.066a3.248 3.248 0 0 1 0 4.596l-2.298 2.3-4.596-4.598 2.298-2.299a3.248 3.248 0 0 1 4.596 0z"></path>
-                    </svg>
-                {% endif %}
-
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
             <h4 class="mt-2 text-black" style="float: left;"><b>{{ board.title }}</b></h4>
             </a>
         </div>
@@ -140,13 +124,13 @@
     <div class="row">
         {% for pin in created_pins %}
         <div class="img-container col-md-2 ms-2 me-4 mb-3">
-            <a href="{% url 'pinterest:pin_detail' pin.id %}">
+            <a href="{% url 'pins:pin_detail' pin.id %}">
                 {% if pin.get_type == 'video' %}
                     <video autoplay muted loop class="video" >
                         <source src="{{ pin.file.url }}" >
                     </video>
                 {% elif pin.get_type == 'image' %}
-                    <img style="object-fit: cover; border-radius: 20px;" height="300" width="200" src="{{ pin.file.url }}">
+                    <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
                 {% endif %}
             </a>
         </div>

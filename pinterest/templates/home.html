@@ -3,7 +3,7 @@
 
 <div id="masonry">
     {% for pin in pins %}
-    <a class="m-2" href="{% url 'pinterest:pin_detail' pin.id %}">
+    <a class="m-2" href="{% url 'pins:pin_detail' pin.id %}">
         {% if pin.get_type == 'video' %}
         <video autoplay muted loop>
             <source src="{{ pin.file.url }}">
