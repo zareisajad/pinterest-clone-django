@@ -60,10 +60,10 @@
         <h5 class="mt-3">
             <b>Comments</b>
             <a href="#" id="openComments">
-                <svg class="mb-1 ms-2 gUZ pBj U9O kVc" height="18" width="18" viewBox="0 0 24 24" aria-label="Select a board you want to save to" role="img"><path d="M12 19.5.66 8.29c-.88-.86-.88-2.27 0-3.14.88-.87 2.3-.87 3.18 0L12 13.21l8.16-8.06c.88-.87 2.3-.87 3.18 0 .88.87.88 2.28 0 3.14L12 19.5z" fill="#111111" stroke-width="0px"></path></svg>
+                <svg class="mb-1 ms-2 Hn_ gUZ pBj U9O kVc" height="18" width="18" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M6.72 24c.57 0 1.14-.22 1.57-.66L19.5 12 8.29.66c-.86-.88-2.27-.88-3.14 0-.87.88-.87 2.3 0 3.18L13.21 12l-8.06 8.16c-.87.88-.87 2.3 0 3.18.43.44 1 .66 1.57.66" fill="#111111" stroke-width="0px"></path></svg>
             </a>
         </h5>
-        <form action="{% url 'pins:add_comment' pin.id %}" id="commentsForm" method="post">
+        <form style="display: none;" action="{% url 'pins:add_comment' pin.id %}" id="commentsForm" method="post">
             <p style="font-size: 12px;" >Share feedback, ask a question or give a high five</p>
             {% csrf_token %}
             <div class="row">
@@ -136,6 +136,23 @@
     </div>
 </div>
 <div class="col-md-2"></div>
+<h3 class="text-black text-center mt-3"><b>More like this</b></h3>
+<div class="row mt-4">
+    {% for pin in related_pins %}
+    <div class="img-container col-md-2 mb-3">
+        <a href="{% url 'pins:pin_detail' pin.id %}">
+            {% if pin.get_type == 'video' %}
+                <video autoplay muted loop class="video" >
+                    <source src="{{ pin.file.url }}" >
+                </video>
+            {% elif pin.get_type == 'image' %}
+                <img style="object-fit: cover; border-radius: 20px; cursor: zoom-in;" height="300" width="200" src="{{ pin.file.url }}">
+            {% endif %}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
 <script>
 // comments open and close form in pin detail
 const openComments = document.querySelector('#openComments')

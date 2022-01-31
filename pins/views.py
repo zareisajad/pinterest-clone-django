@@ -66,12 +66,9 @@ def delete_comment(request, id):
 
 @login_required
 def pin_detail(request, id):
+    related_pins = []
     pin = Pin.objects.filter(id=id).first()
-    is_following = request.user.followers.filter(following=pin.user).first()
     saved_pin = request.user.pin_user.filter(id=id).first()
-    form = SaveToBoard(request.user, instance=saved_pin)
-    edit_form = EditPinForm(request.user, instance=pin)
-    comment_form = CommentForm()
     if request.method == 'POST':
         form = SaveToBoard(request.user, request.POST, instance=saved_pin)
         if form.is_valid():
@@ -81,12 +78,29 @@ def pin_detail(request, id):
             board = Board.objects.filter(id=request.POST.get('board')).first()
             board.pins.add(pin)
         return redirect(request.META.get('HTTP_REFERER'))
+    is_following = request.user.followers.filter(following=pin.user).first()
+    form = SaveToBoard(request.user, instance=saved_pin)
+    edit_form = EditPinForm(request.user, instance=pin)
+    comment_form = CommentForm()
+    # related pins
+    boards = Board.objects.filter().all() # get all boards
+    # get all boards that contains the current pin
+    related_board = [board for board in boards if board.pins.filter(id=id).first()] 
+    # get all pins in related boards, The output may be a nested list of queryset objects
+    related_pins_lists = [board.pins.all() for board in related_board]
+    # make ONE list of all pins
+    for i in range(len(related_pins_lists)):
+        for p in related_pins_lists[i]:
+            related_pins.append(p)
+    # remove current pin from related pins
+    get_cuurent_pin = [related_pins.remove(pin) for pin in related_pins if pin.id == id]
     context = {
         'pin': pin,
         'form': form,
         'is_following': is_following,
         'edit_form': edit_form,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'related_pins':set(related_pins)
     }
     return render(request, 'pin_detail.html', context)
 
