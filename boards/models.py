@@ -8,6 +8,7 @@ class Board(models.Model):
     title = models.CharField(max_length=250)
     pins = models.ManyToManyField('pins.Pin', related_name='pins', blank=True)
     cover = models.ImageField(upload_to='boards', default='boards/default.png')
+    is_private = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

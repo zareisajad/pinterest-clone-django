@@ -93,7 +93,7 @@
                         placeholder='Like "Places to Go" or "Recipes to Make"'
                     />
                     <div class="col-md-1 mt-4">                            
-                        <input style="float: left;" type="checkbox" class="form-check-input mt-1">
+                        <input name="private" value="private" style="float: left;" type="checkbox" class="form-check-input mt-1">
                     </div>
                     <div style="text-align:left" class="col-md-11">
                         <b class="ms-1">Keep this board secret</b>
@@ -104,6 +104,7 @@
             </div>
         </div>
     </div>
+
     {% if '_saved' in request.get_full_path %}
     <!-- user boards -->
     <div id="boards" class="row">
