@@ -56,3 +56,12 @@ def save_to_board(request, id):
             board = Board.objects.filter(id=request.POST.get('board')).first()
             board.pins.add(pin)
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def remove_from_board(request, pin_id, board_id):
+    board = request.user.board_user.filter(id=board_id).first()
+    get_pin = board.pins.filter(id=pin_id).first()
+    if get_pin:
+        board.pins.remove(get_pin)
+    return redirect(request.META.get('HTTP_REFERER'))
