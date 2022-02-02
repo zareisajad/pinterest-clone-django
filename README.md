@@ -1,1 +1,1 @@
-# pinterest-clone-django
+# Django Pinterest Clone
