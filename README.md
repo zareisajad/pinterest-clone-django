@@ -3,6 +3,7 @@
 [Preview](#app-preview)
 
 ## Features:
+- public profile include bio, photo, webiste link, etc..
 - create pin, image or video
 - create boards, public or private (only you can see it)
 - edit board cover, name, etc..
