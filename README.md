@@ -1,7 +1,4 @@
 # Django Pinterest Clone
-
-[Preview](#app-preview)
-
 ## Features:
 - public profile include bio, photo, webiste link, etc..
 - create pin, image or video
@@ -31,5 +28,5 @@
 8. run the server: ```python manage.py runserver```
 9. you should be able to open this address now: http://127.0.0.1:8000/
 
-## App Preview
-
+## To-Do:
+- [ ] in pin-detail page, show the board in form if the pin is saved alerady
