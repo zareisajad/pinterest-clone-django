@@ -14,7 +14,6 @@
 </head>
 <body>
   <header class="p-3 mb-3 bg-white sticky-top">
-    {% if request.user.is_authenticated %}
     <div class="">
       <div class="d-flex flex-wrap align-items-center justify-content-center">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
@@ -32,7 +31,6 @@
           <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="me-3 Hn_ gUZ B9u U9O kVc" height="24" width="24" viewBox="0 0 24 24" aria-hidden="true" aria-label="" role="img"><path d="M18 12.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 18 12.5m-6 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 12 12.5m-6 0a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 6 12.5M12 0C5.925 0 1 4.925 1 11c0 2.653.94 5.086 2.504 6.986L2 24l5.336-3.049A10.93 10.93 0 0 0 12 22c6.075 0 11-4.925 11-11S18.075 0 12 0" fill="#767676" stroke-width="0px"></path></svg>
         </div>
         <a href="{% url 'accounts:profile' request.user.username %}">
-
           <img src="{{ request.user.profile.photo.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <div class="dropdown text-end">
@@ -46,23 +44,6 @@
         </div>
       </div>
     </div>
-    {% else %}
-    <div class="">
-      <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pinterest_Logo.svg/1200px-Pinterest_Logo.svg.png" width="120" height="33" alt="">
-        </a>
-        <ul class="nav ms-5 col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
-        <div class="dropdown text-end">
-          <a class="text-decoration-none text-black me-4" href=""><b>About</b></a>
-          <a class="text-decoration-none text-black me-4" href=""><b>Business</b></a>
-          <a class="text-decoration-none text-black me-5" href="#"><b>Blog</b></a>
-          <a href="{% url 'accounts:user_login' %}" class="red-btn btn text-white "><b>Login</b></a>
-          <a href="{% url 'accounts:user_register' %}" class="main-btn btn text-black ms-3"><b>Sign Up</b></a>
-        </div>
-      </div>
-    </div>
-    {% endif %}
   </header>
     <main class="ms-3 me-3">
         <div class="row mt-3">

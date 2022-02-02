@@ -84,7 +84,7 @@ div#masonry img, div#masonry video {
 	margin-bottom: 15px;
 }
 
-header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
+header, .first-header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 
 .btn {border-radius: 50px;}
 .following-btn {background-color: #0e0e0e;}
@@ -151,4 +151,9 @@ header {box-shadow: rgba(89, 89, 92, 0.041) 0px 7px 5px 0px;}
 }
 .private-checkbox {
 	float: left;
+}
+.login-bg {
+	background-image: url('../../media/background.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }

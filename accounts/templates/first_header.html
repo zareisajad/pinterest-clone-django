@@ -1,0 +1,15 @@
+<div class="p-3 bg-white first-header">
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Pinterest_Logo.svg/1200px-Pinterest_Logo.svg.png" width="120" height="33" alt="">
+        </a>
+        <ul class="nav ms-5 col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></ul>
+        <div class="dropdown text-end">
+        <a class="text-decoration-none text-black me-4" href="#"><b>About</b></a>
+        <a class="text-decoration-none text-black me-4" href="#"><b>Business</b></a>
+        <a class="text-decoration-none text-black me-5" href="#"><b>Blog</b></a>
+        <a href="{% url 'accounts:user_login' %}" id="loginBtn" class="red-btn btn text-white "><b>Login</b></a>
+        <a href="{% url 'accounts:user_register' %}" class="main-btn btn text-black ms-3"><b>Sign Up</b></a>
+        </div>
+    </div>
+</div>
