@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from boards.forms import CreateBoardForm
 from .forms import UserRegistrationForm, UserLoginForm, EditProfileForm
@@ -13,10 +14,14 @@ def user_register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = User.objects.create_user(
-                data['email'], data['username'], data['password']
+            check_user = User.objects.filter(
+                Q(username=data['username']) | Q(email=data['email'])
             )
-            return redirect('accounts:user_login')
+            if not check_user:
+                user = User.objects.create_user(
+                    data['email'], data['username'], data['password']
+                )
+                return redirect('accounts:user_login')
     else:
         form = UserRegistrationForm()
     context = {'title':'Signup', 'form':form}
@@ -35,10 +40,7 @@ def user_login(request):
                 login(request, user)
                 return redirect('pinterest:home')
             else:
-                messages.error(
-                    request, 'username or password is wrong', 'danger'
-                )
-                return redirect('accounts:user_login')
+                return redirect(request.META.get('HTTP_REFERER'))
     else:
         form = UserLoginForm()
     context = {'title':'Login', 'form': form}
