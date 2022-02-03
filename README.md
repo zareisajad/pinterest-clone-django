@@ -1,5 +1,6 @@
 # Django Pinterest Clone
-A pinterest clone created by django rest-framework, the idea in this program is about pins and boards. Users can create a board in their profile and save the pins on the board. Related / similar pins are also shown below each pin. The algorithm for the associated pins is very simple: when the user goes to the "PIN Details" page, we look for all the program boards that may contain the specified "pin", when we find a board that has that particular pin. We also show all the other pins on that board.
+![Screenshot 2022-02-02 at 10-21-38 Pinterest-min](https://user-images.githubusercontent.com/71011395/152303215-f1b256c4-505c-4c4a-8ad6-eb044df43398.png)
+A pinterest clone created by django rest-framework is the idea for pins and boards. Users can create a board in their profile and save the pins on the board. Related / similar pins are also shown below each pin. The related / similar PIN algorithm is very simple: when the user goes to the "PIN Details" page, we look for all the boards that may contain that particular "PIN", if we find the board. We also show all the pins in that board.
 
 ## Features:
 - public profile include bio, photo, webiste link, etc..
