@@ -4,7 +4,7 @@ A pinterest clone created by django.
 the idea is about pins and boards. user can create a board and save pins on that board.  
 similar pins are also shown below each pin in pin-detail page.  
 the algorithm is very simple: when user goes to the pin-detail page, we look for all boards in database that may contain this particular pin,
-the we show all pins in that board as similar pins.
+the we show all pins in that boards as similar pins.
 
 ## Features:
 - public profile include bio, photo, webiste link, etc..
