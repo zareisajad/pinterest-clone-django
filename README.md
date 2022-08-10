@@ -36,4 +36,4 @@ the we show all pins in that boards as similar pins.
 9. you should be able to open this address now: http://127.0.0.1:8000/
 
 ## To-Do:
-- [ ] in pin-detail page, show the board name in form if the pin is saved alerady
+- [ ] in pin-detail page, show the board name in form if the pin is saved already
