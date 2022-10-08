@@ -1,10 +1,10 @@
 # Django Pinterest Clone
 ![Screenshot 2022-02-02 at 10-21-38 Pinterest-min](https://user-images.githubusercontent.com/71011395/152303215-f1b256c4-505c-4c4a-8ad6-eb044df43398.png)
-A pinterest clone created by django.  
-the idea is about pins and boards. user can create a board and save pins on that board.  
+A pinterest clone:
+user can create a board and save pins on that board.  
 similar pins are also shown below each pin in pin-detail page.  
 the algorithm is very simple: when user goes to the pin-detail page, we look for all boards in database that may contain this particular pin,
-the we show all pins in that boards as similar pins.
+then we show all pins in that boards.
 
 ## Features:
 - public profile include bio, photo, webiste link, etc..
